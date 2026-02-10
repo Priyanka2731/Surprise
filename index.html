@@ -5,103 +5,248 @@
 <title>For You ❤️</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fecfef);
-    text-align: center;
-    color: white;
-    overflow: hidden;
-}
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+    body {
+        font-family: "Poppins", Arial, sans-serif;
+        background: radial-gradient(circle at top, #ff9a9e 0%, #fecfef 40%, #fbc2eb 75%, #a18cd1 100%);
+        height: 100vh;
+        overflow: hidden;
+        color: #fff;
+    }
 
-h1 {
-    font-size: 2.8em;
-}
+    /* Floating hearts background */
+    .hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+    }
 
-p {
-    font-size: 1.4em;
-    min-height: 40px;
-}
+    .heart {
+        position: absolute;
+        bottom: -50px;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.7);
+        transform: rotate(45deg);
+        animation: floatUp 8s linear infinite;
+    }
 
-button {
-    padding: 12px 30px;
-    margin: 15px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: inherit;
+        border-radius: 50%;
+    }
 
-#yesBtn {
-    background: #ff4d6d;
-    color: white;
-    box-shadow: 0 0 15px #ff4d6d;
-}
+    .heart::before {
+        top: -10px;
+        left: 0;
+    }
 
-#yesBtn:hover {
-    transform: scale(1.1);
-}
+    .heart::after {
+        left: -10px;
+        top: 0;
+    }
 
-#noBtn {
-    background: gray;
-    color: white;
-}
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) rotate(45deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-110vh) rotate(45deg);
+            opacity: 0;
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 700px;
+        text-align: center;
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h1 {
+        font-size: 2.8em;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.4em;
+        font-weight: 400;
+        margin-bottom: 25px;
+        opacity: 0.9;
+    }
+
+    p {
+        font-size: 1.3em;
+        min-height: 40px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 12px 30px;
+        margin: 10px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    #yesBtn {
+        background: linear-gradient(135deg, #ff4d6d, #ff758f);
+        color: #fff;
+        box-shadow: 0 0 20px rgba(255, 77, 109, 0.7);
+        transform-origin: center;
+    }
+
+    #yesBtn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(255, 77, 109, 0.9);
+    }
+
+    #noBtn {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+
+    #noBtn:hover {
+        background: rgba(255, 255, 255, 0.35);
+        transform: scale(1.05);
+    }
+
+    /* Celebration screen */
+    .celebration {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 100vh;
+        color: #fff;
+        padding: 0 20px;
+    }
+
+    .celebration h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+    }
+
+    .celebration p {
+        font-size: 1.5em;
+        max-width: 600px;
+        margin-bottom: 25px;
+    }
+
+    .tiny-note {
+        margin-top: 15px;
+        font-size: 0.95em;
+        opacity: 0.9;
+    }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- Floating hearts -->
+<div class="hearts" id="hearts"></div>
+
+<div class="container" id="mainBox">
     <h1>Will You Be My Valentine? 💖</h1>
+    <h2>Out of all the hearts in the world, mine chose you. 💘</h2>
 
     <p id="message"></p>
 
-    <button id="yesBtn" onclick="celebrate()">Yes ❤️</button>
-    <button id="noBtn" onclick="noClick()">No 😢</button>
+    <button id="yesBtn" onclick="celebrate()">Yes, I will 💞</button>
+    <button id="noBtn" onclick="noClick()">Hmm… No 😅</button>
 </div>
 
 <script>
-
-let messages = [
-    "Please don't do that 😔",
-    "Please accept me ❤️",
-    "Be with me 💕",
-    "Don't leave me 🥺",
-    "Say YES please 😍"
-];
-
-let count = 0;
-
-function noClick() {
-
-    let msg = document.getElementById("message");
-
-    if (count < messages.length) {
-        msg.innerHTML = messages[count];
-        count++;
-    } 
-    else {
-        document.getElementById("noBtn").style.display = "none";
-        msg.innerHTML = "You only have one option now 😜❤️";
+    // Create random floating hearts
+    const heartsContainer = document.getElementById("hearts");
+    for (let i = 0; i < 20; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.animationDelay = Math.random() * 6 + "s";
+        h.style.animationDuration = 6 + Math.random() * 4 + "s";
+        heartsContainer.appendChild(h);
     }
-}
 
-function celebrate() {
-    document.body.innerHTML =
-    `<h1 style="margin-top:20%; font-size:3em;">
-    You Said YES ❤️🥰<br>
-    Best Moment Ever 💞
-    </h1>`;
-}
+    let messages = [
+        "Are you sure? My heart is already with you… 💔",
+        "Give this poor heart a chance, please? 🥺",
+        "I promise to bring you chocolate and unlimited hugs. 🍫🤗",
+        "We would look so cute together, you know that right? 😍",
+        "Last chance to make my world perfect… 💕"
+    ];
 
+    let count = 0;
+
+    function noClick() {
+        const msg = document.getElementById("message");
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+
+        if (count < messages.length) {
+            msg.innerHTML = messages[count];
+            count++;
+            // Make Yes button slowly bigger and No smaller to be playful
+            yesBtn.style.transform = "scale(" + (1 + count * 0.08) + ")";
+            noBtn.style.transform = "scale(" + (1 - count * 0.05) + ")";
+        } else {
+            noBtn.style.display = "none";
+            msg.innerHTML = "Looks like saying NO isn’t an option anymore… 😜❤️";
+        }
+    }
+
+    function celebrate() {
+        document.body.innerHTML = `
+        <div class="hearts" id="hearts"></div>
+        <div class="celebration">
+            <h1>You Said YES! ❤️🥰</h1>
+            <p>
+                From this moment on, this day will always be <strong>our</strong> story.<br>
+                Thank you for choosing me, for choosing us. 💞
+            </p>
+            <h2>Happy Valentine’s Day, my favourite person. 🌹</h2>
+            <div class="tiny-note">
+                (Now I officially owe you a date, laughter, and a lifetime of care 😉)
+            </div>
+        </div>
+        `;
+
+        // Re‑add floating hearts on the celebration screen
+        const hearts2 = document.getElementById("hearts");
+        for (let i = 0; i < 25; i++) {
+            const h = document.createElement("div");
+            h.className = "heart";
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.animationDelay = Math.random() * 6 + "s";
+            h.style.animationDuration = 6 + Math.random() * 4 + "s";
+            hearts2.appendChild(h);
+        }
+    }
 </script>
 
 </body>
