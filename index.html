@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>For You, Deeps 💖</title>
 
@@ -19,129 +19,113 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
+  overflow:auto;
 }
 
-/* Glitter background */
-body::before{
-  content:"";
+/* Floating hearts */
+.hearts{
   position:fixed;
   inset:0;
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size:40px 40px;
-  opacity:0.3;
-  animation: sparkle 6s linear infinite;
+  pointer-events:none;
+  z-index:0;
 }
 
-@keyframes sparkle{
-  from{transform:translateY(0);}
-  to{transform:translateY(-40px);}
+.heart{
+  position:absolute;
+  bottom:-40px;
+  width:18px;
+  height:18px;
+  background:#ff8fab;
+  transform:rotate(45deg);
+  animation:floatUp 7s linear infinite;
 }
 
-/* Falling Roses */
-.rose{
-  position:fixed;
-  top:-50px;
-  font-size:20px;
-  animation: fall 7s linear infinite;
+.heart::before,
+.heart::after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:inherit;
+  border-radius:50%;
 }
 
-@keyframes fall{
-  to{
-    transform: translateY(110vh);
-    opacity:0;
-  }
+.heart::before{ top:-9px; }
+.heart::after{ left:-9px; }
+
+@keyframes floatUp{
+  from{ transform:translateY(0) rotate(45deg); opacity:1; }
+  to{ transform:translateY(-110vh) rotate(45deg); opacity:0; }
 }
 
-/* Container */
+/* Romantic Container */
 .container{
   width:90%;
   max-width:420px;
   padding:28px;
   border-radius:25px;
-  background: rgba(255,240,245,0.95);
+  background: rgba(255, 240, 245, 0.92);
   text-align:center;
-  box-shadow:0 12px 35px rgba(255,105,135,0.35);
+  box-shadow:0 12px 35px rgba(255, 105, 135, 0.35);
+  backdrop-filter: blur(8px);
   z-index:1;
+  margin:30px 0;
 }
 
 h1{
   color:#d6336c;
+  font-size:1.9rem;
   margin-bottom:10px;
 }
 
 h2{
   color:#a61e4d;
+  font-size:1rem;
   margin-bottom:18px;
 }
 
 p{
   color:#7a1c3d;
+  font-size:1rem;
   line-height:1.6;
-  min-height:50px;
+  margin-bottom:15px;
 }
 
-/* YES heartbeat animation */
+/* Buttons */
+button{
+  padding:12px 22px;
+  margin:8px;
+  font-size:16px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.25s;
+}
+
 #yesBtn{
   background: linear-gradient(135deg,#ff4d6d,#ff8fa3);
   color:white;
-  border:none;
-  padding:12px 22px;
-  border-radius:25px;
-  margin:8px;
-  font-size:16px;
-  cursor:pointer;
-  animation: heartbeat 1.5s infinite;
+  box-shadow:0 6px 18px rgba(255,77,109,0.5);
 }
 
-@keyframes heartbeat{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.12);}
+#yesBtn:hover{
+  transform:scale(1.1);
 }
 
 #noBtn{
   background:#ffe5ec;
-  border:none;
-  padding:12px 22px;
-  border-radius:25px;
-  margin:8px;
-  cursor:pointer;
+  color:#7a1c3d;
 }
 
-/* Envelope */
-.envelope{
-  width:220px;
-  height:150px;
-  background:#ffcad4;
-  position:relative;
-  margin:auto;
-  border-radius:8px;
-  cursor:pointer;
+/* Celebration scroll fix */
+.celebration{
+  max-height:90vh;
+  overflow-y:auto;
 }
 
-.flap{
-  width:0;
-  height:0;
-  border-left:110px solid transparent;
-  border-right:110px solid transparent;
-  border-bottom:80px solid #ff8fab;
-  position:absolute;
-  top:0;
-  transition:1s;
-  transform-origin:top;
-}
-
-.letter{
-  position:absolute;
-  background:white;
-  width:180px;
-  height:120px;
-  left:20px;
-  top:20px;
-  padding:15px;
-  border-radius:6px;
-  display:none;
-  overflow:auto;
+.tiny-note{
+  font-size:0.9rem;
+  opacity:0.8;
 }
 
 </style>
@@ -149,7 +133,7 @@ p{
 
 <body>
 
-<div id="roses"></div>
+<div class="hearts" id="hearts"></div>
 
 <div class="container" id="mainBox">
 
@@ -169,19 +153,17 @@ my heart quietly chose you 💕
 
 <script>
 
-/* Falling Roses */
-const roses=document.getElementById("roses");
-setInterval(()=>{
-  const r=document.createElement("div");
-  r.className="rose";
-  r.innerHTML="🌹";
-  r.style.left=Math.random()*100+"vw";
-  roses.appendChild(r);
+/* Floating Hearts */
+const heartsContainer=document.getElementById("hearts");
+for(let i=0;i<20;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDelay=Math.random()*5+"s";
+  heartsContainer.appendChild(h);
+}
 
-  setTimeout(()=>r.remove(),7000);
-},500);
-
-/* Cute messages */
+/* Cute Messages */
 let messages=[
 "I am too cute to say no to 😌💗",
 "Are you sure…? I promise unlimited care & smiles 🥺",
@@ -194,67 +176,55 @@ let count=0;
 
 function noClick(){
   const msg=document.getElementById("message");
+  const noBtn=document.getElementById("noBtn");
+  const yesBtn=document.getElementById("yesBtn");
 
   if(count<messages.length){
     msg.innerHTML=messages[count];
     count++;
+    yesBtn.style.transform="scale("+(1+count*0.08)+")";
+    noBtn.style.transform="scale("+(1-count*0.07)+")";
+  }else{
+    noBtn.style.display="none";
+    msg.innerHTML="Looks like destiny wants you to press YES 😉💖";
   }
 }
 
-/* Typing animation */
-function typeText(text,element){
-  let i=0;
-  element.innerHTML="";
-  function typing(){
-    if(i<text.length){
-      element.innerHTML+=text.charAt(i);
-      i++;
-      setTimeout(typing,30);
-    }
-  }
-  typing();
-}
-
-/* Envelope Love Letter */
 function celebrate(){
-
   document.body.innerHTML=`
+  <div class="hearts" id="hearts"></div>
 
-  <div class="container">
+  <div class="container celebration">
+    <h1>You said YES 💖</h1>
 
-    <h1>Open Your Love Letter 💌</h1>
+    <p>
+      You just made my world a little brighter 🌸<br><br>
 
-    <div class="envelope" onclick="openLetter()">
-      <div class="flap" id="flap"></div>
-      <div class="letter" id="letter">
-        <p id="loveText"></p>
-      </div>
+      Thank you for being my forever comfort and my happy pills 💕<br>
+      I love you always Deeps… you mean so much more to me than words can ever explain 🫂😘<br><br>
+
+      You are the reason behind my smiles, my calm during chaos,  
+      and the person who makes ordinary days feel special ✨<br><br>
+
+      I promise to stand by you, support you, annoy you a little,  
+      and care for you endlessly 🤭💗<br><br>
+
+      No matter where life takes us,  
+      my heart will always choose you… again and again ❤️
+    </p>
+
+    <div class="tiny-note">
+      I promise unlimited laughter, care, and support always 😊
     </div>
-
   </div>
   `;
 
-  window.openLetter=function(){
-
-    document.getElementById("flap").style.transform="rotateX(180deg)";
-    const letter=document.getElementById("letter");
-    letter.style.display="block";
-
-    const message=`
-You just made my world brighter 🌸
-
-Thank you for being my comfort and my happy pills 💕
-I love you always Deeps… you mean everything to me 🫂😘
-
-You are my smile, my peace, my favourite person ✨
-
-I promise to stand by you, annoy you lovingly,
-and care for you endlessly 💗
-
-My heart will always choose you ❤️
-`;
-
-    typeText(message,document.getElementById("loveText"));
+  const hearts2=document.getElementById("hearts");
+  for(let i=0;i<25;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.style.left=Math.random()*100+"vw";
+    hearts2.appendChild(h);
   }
 }
 
