@@ -1,293 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>For You, Deeps ❤️</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    body {
-        font-family: "Poppins", Arial, sans-serif;
-        background: radial-gradient(circle at top, #ff9a9e 0%, #fecfef 40%, #fbc2eb 75%, #a18cd1 100%);
-        height: 100vh;
-        overflow: hidden;
-        color: #fff;
-    }
+  body {
+    font-family: "Poppins", Arial, sans-serif;
+    background: radial-gradient(circle at top, #ff9a9e 0%, #fecfef 40%, #fbc2eb 75%, #a18cd1 100%);
+    height: 100vh;
+    overflow: hidden;
+    color: #fff;
+  }
 
-    .hearts {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 0;
-    }
+  .hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
 
-    .heart {
-        position: absolute;
-        bottom: -50px;
-        width: 20px;
-        height: 20px;
-        background: rgba(255, 255, 255, 0.7);
-        transform: rotate(45deg);
-        animation: floatUp 8s linear infinite;
-    }
+  .heart {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    transform: rotate(45deg);
+    animation: floatUp 8s linear infinite;
+  }
 
-    .heart::before,
-    .heart::after {
-        content: "";
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: inherit;
-        border-radius: 50%;
-    }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: inherit;
+    border-radius: 50%;
+  }
 
-    .heart::before {
-        top: -10px;
-        left: 0;
-    }
+  .heart::before {
+    top: -10px;
+    left: 0;
+  }
 
-    .heart::after {
-        left: -10px;
-        top: 0;
-    }
+  .heart::after {
+    left: -10px;
+    top: 0;
+  }
 
-    @keyframes floatUp {
-        0% {
-            transform: translateY(0) rotate(45deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-110vh) rotate(45deg);
-            opacity: 0;
-        }
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) rotate(45deg);
+      opacity: 1;
     }
+    100% {
+      transform: translateY(-110vh) rotate(45deg);
+      opacity: 0;
+    }
+  }
 
-    .container {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 750px;
-        text-align: center;
-        padding: 30px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(6px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 750px;
+    text-align: center;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    h1 {
-        font-size: 2.6em;
-        margin-bottom: 10px;
-    }
+  h1 {
+    font-size: 2.6em;
+    margin-bottom: 10px;
+  }
 
-    h2 {
-        font-size: 1.4em;
-        font-weight: 400;
-        margin-bottom: 20px;
-        opacity: 0.92;
-    }
+  h2 {
+    font-size: 1.4em;
+    font-weight: 400;
+    margin-bottom: 20px;
+    opacity: 0.92;
+  }
 
-    p {
-        font-size: 1.25em;
-        min-height: 40px;
-        margin-bottom: 15px;
-    }
+  p {
+    font-size: 1.25em;
+    min-height: 40px;
+    margin-bottom: 15px;
+  }
 
-    button {
-        padding: 12px 30px;
-        margin: 10px;
-        font-size: 18px;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: 0.25s;
-    }
+  button {
+    padding: 12px 30px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.25s;
+  }
 
-    #yesBtn {
-        background: linear-gradient(135deg, #ff4d6d, #ff758f);
-        color: #fff;
-        box-shadow: 0 0 20px rgba(255, 77, 109, 0.7);
-    }
+  #yesBtn {
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 77, 109, 0.7);
+  }
 
-    #yesBtn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 30px rgba(255, 77, 109, 0.9);
-    }
+  #yesBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 77, 109, 0.9);
+  }
 
-    #noBtn {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-    }
+  #noBtn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
 
-    #noBtn:hover {
-        background: rgba(255, 255, 255, 0.35);
-        transform: scale(1.05);
-    }
+  #noBtn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.05);
+  }
 
-    .friend-image {
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid rgba(255, 255, 255, 0.8);
-        margin-bottom: 15px;
-        box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
-    }
+  .friend-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
+  }
 
-    .celebration {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        height: 100vh;
-        color: #fff;
-        padding: 0 20px;
-    }
+  .celebration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    color: #fff;
+    padding: 0 20px;
+  }
 
-    .celebration h1 {
-        font-size: 3em;
-        margin-bottom: 10px;
-    }
+  .celebration h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+  }
 
-    .celebration p {
-        font-size: 1.5em;
-        max-width: 650px;
-        margin-bottom: 25px;
-        line-height: 1.4;
-    }
+  .celebration p {
+    font-size: 1.5em;
+    max-width: 650px;
+    margin-bottom: 25px;
+    line-height: 1.4;
+  }
 
-    .tiny-note {
-        margin-top: 15px;
-        font-size: 0.95em;
-        opacity: 0.9;
-    }
+  .tiny-note {
+    margin-top: 15px;
+    font-size: 0.95em;
+    opacity: 0.9;
+  }
 
-    /* Small audio control info */
-    .audio-note {
-        position: fixed;
-        bottom: 8px;
-        right: 10px;
-        font-size: 0.75em;
-        opacity: 0.8;
-    }
+  .audio-note {
+    position: fixed;
+    bottom: 8px;
+    right: 10px;
+    font-size: 0.75em;
+    opacity: 0.8;
+  }
 </style>
 </head>
 
 <body>
 
-<!-- background music (loop for entire time) -->
-<audio id="bgMusic" src="your-music-file.mp3" loop></audio>
-<!-- replace your-music-file.mp3 with an mp3 path, e.g. music/romantic.mp3 -->
+<!-- background music file is in root: bg-music.mp3 -->
+<audio id="bgMusic" src="bg-music.mp3" loop></audio>
 
 <div class="hearts" id="hearts"></div>
 
 <div class="container" id="mainBox">
-    <!-- best‑friend / couple image -->
-    <img class="friend-image" src="your-best-friend-image.jpg" alt="Us">
-    <!-- replace with actual image path or URL -->
+  <!-- image file is in root: Deeps.jpg -->
+  <img class="friend-image" src="Deeps.jpg" alt="Us" />
 
-    <h1>Deeps, will you be<br>my best friend forever? 💖</h1>
-    <h2>Somewhere between “just friends” and “something more”…<br>my heart chose you. 💘</h2>
+  <h1>Deeps, will you be<br />my best friend forever? 💖</h1>
+  <h2>
+    Somewhere between “just friends” and “something more”…<br />
+    my heart chose you. 💘
+  </h2>
 
-    <p id="message"></p>
+  <p id="message"></p>
 
-    <button id="yesBtn" onclick="celebrate()">Yes, forever 💞</button>
-    <button id="noBtn" onclick="noClick()">No, never 😅</button>
+  <button id="yesBtn">Yes, forever 💞</button>
+  <button id="noBtn">No, never 😅</button>
 </div>
 
 <div class="audio-note">
-    If music doesn’t start, tap anywhere or press play in the browser bar 🎵
+  If music doesn’t start, just click once anywhere 🎵
 </div>
 
 <script>
-    // floating hearts
-    const heartsContainer = document.getElementById("hearts");
-    for (let i = 0; i < 20; i++) {
-        const h = document.createElement("div");
-        h.className = "heart";
-        h.style.left = Math.random() * 100 + "vw";
-        h.style.animationDelay = Math.random() * 6 + "s";
-        h.style.animationDuration = 6 + Math.random() * 4 + "s";
-        heartsContainer.appendChild(h);
+  // floating hearts
+  const heartsContainer = document.getElementById("hearts");
+  for (let i = 0; i < 20; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDelay = Math.random() * 6 + "s";
+    h.style.animationDuration = 6 + Math.random() * 4 + "s";
+    heartsContainer.appendChild(h);
+  }
+
+  // Chrome: start audio only after user interaction
+  const bgMusic = document.getElementById("bgMusic");
+  let musicStarted = false;
+  function startMusicOnce() {
+    if (!musicStarted && bgMusic) {
+      bgMusic.play().catch(() => {});
+      musicStarted = true;
     }
+  }
+  document.addEventListener("click", startMusicOnce);
 
-    // auto-start music after first user interaction (needed for most browsers)
-    const bgMusic = document.getElementById("bgMusic");
-    let musicStarted = false;
-    function startMusicOnce() {
-        if (!musicStarted) {
-            bgMusic.play().catch(() => {});
-            musicStarted = true;
-        }
+  let messages = [
+    "Ouch… my heart definitely felt that one, Deeps. 💔",
+    "Are you sure you don’t want a lifetime of my love and laughter? 🥺",
+    "I promise to be your safe place, your smile, and your biggest supporter. 💞",
+    "We already feel like more than ‘just friends’… don’t we? 😌",
+    "Last chance, Deeps… say yes and keep my heart forever. ❤️"
+  ];
+
+  let count = 0;
+
+  function noClick() {
+    const msg = document.getElementById("message");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    if (count < messages.length) {
+      msg.innerHTML = messages[count];
+      count++;
+      yesBtn.style.transform = "scale(" + (1 + count * 0.08) + ")";
+      noBtn.style.transform = "scale(" + Math.max(0.6, 1 - count * 0.06) + ")";
+    } else {
+      noBtn.style.display = "none";
+      msg.innerHTML =
+        "Looks like saying ‘no’ isn’t allowed anymore, Deeps… 😜❤️";
     }
-    document.addEventListener("click", startMusicOnce);
+  }
 
-    let messages = [
-        "Ouch… my heart definitely felt that one, Deeps. 💔",
-        "Are you sure you don’t want a lifetime of my love and laughter? 🥺",
-        "I promise to be your safe place, your smile, and your biggest supporter. 💞",
-        "We already feel like more than ‘just friends’… don’t we? 😌",
-        "Last chance, Deeps… say yes and keep my heart forever. ❤️"
-    ];
+  function celebrate() {
+    // keep audio and image working after we replace the body
+    document.body.innerHTML = `
+      <audio id="bgMusic" src="bg-music.mp3" loop autoplay></audio>
+      <div class="hearts" id="hearts"></div>
+      <div class="celebration">
+          <img class="friend-image" src="Deeps.jpg" alt="Us" />
+          <h1>You said YES, Deeps! ❤️</h1>
+          <p>
+              From today, you’re not just my favourite person,<br>
+              you’re my <strong>forever</strong> best friend and the one my heart belongs to. 💗
+          </p>
+          <h2>Thank you for letting me keep you in my life, always. 🌹</h2>
+          <div class="tiny-note">
+              (Now I officially owe you endless caring, late‑night talks, and a lifetime of love and support 😉)
+          </div>
+      </div>
+    `;
 
-    let count = 0;
-
-    function noClick() {
-        const msg = document.getElementById("message");
-        const noBtn = document.getElementById("noBtn");
-        const yesBtn = document.getElementById("yesBtn");
-
-        if (count < messages.length) {
-            msg.innerHTML = messages[count];
-            count++;
-            yesBtn.style.transform = "scale(" + (1 + count * 0.08) + ")";
-            noBtn.style.transform = "scale(" + Math.max(0.6, 1 - count * 0.06) + ")";
-        } else {
-            noBtn.style.display = "none";
-            msg.innerHTML = "Looks like saying ‘no’ isn’t allowed anymore, Deeps… 😜❤️";
-        }
+    const hearts2 = document.getElementById("hearts");
+    for (let i = 0; i < 25; i++) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDelay = Math.random() * 6 + "s";
+      h.style.animationDuration = 6 + Math.random() * 4 + "s";
+      hearts2.appendChild(h);
     }
+  }
 
-    function celebrate() {
-        document.body.innerHTML = `
-        <audio id="bgMusic" src="your-music-file.mp3" loop autoplay></audio>
-        <div class="hearts" id="hearts"></div>
-        <div class="celebration">
-            <img class="friend-image" src="your-best-friend-image.jpg" alt="Us">
-            <h1>You said YES, Deeps! ❤️</h1>
-            <p>
-                From today, you’re not just my favourite person,<br>
-                you’re my <strong>forever</strong> best friend and the one my heart belongs to. 💗
-            </p>
-            <h2>Thank you for letting me keep you in my life, always. 🌹</h2>
-            <div class="tiny-note">
-                (Now I officially owe you endless caring, late‑night talks, and a lifetime of love and support 😉)
-            </div>
-        </div>
-        `;
-
-        // re‑add floating hearts on celebration screen
-        const hearts2 = document.getElementById("hearts");
-        for (let i = 0; i < 25; i++) {
-            const h = document.createElement("div");
-            h.className = "heart";
-            h.style.left = Math.random() * 100 + "vw";
-            h.style.animationDelay = Math.random() * 6 + "s";
-            h.style.animationDuration = 6 + Math.random() * 4 + "s";
-            hearts2.appendChild(h);
-        }
-    }
+  // attach handlers after elements exist
+  document.getElementById("yesBtn").addEventListener("click", celebrate);
+  document.getElementById("noBtn").addEventListener("click", noClick);
 </script>
-
 </body>
 </html>
